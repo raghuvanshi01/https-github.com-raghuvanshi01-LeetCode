@@ -1,43 +1,20 @@
 class Solution {
 public:
     bool checkAlmostEquivalent(string word1, string word2) {
-        unordered_map<char,int> a;
-        unordered_map<char,int> b;
-        for(int i=0;i<word1.length();i++)
+        vector<int> c(26,0);
+    for(auto x:word1)
+    {
+     c[x-'a']++;   
+    }
+        for(auto x:word2)
         {
-            a[word1[i]]++;
-            b[word2[i]]++;
+            c[x-'a']--;
         }
-        for(auto x:a)
+        for(int i=0;i<26;i++)
         {
-            if(b.find(x.first)!=b.end())
+            if(abs(c[i])>3)
             {
-                if(abs(x.second-b[x.first])>3)
-                {
-                    return false; 
-                }
-            }
-            else{
-                if(x.second>3)
-                {
-                    return false; 
-                }
-            }
-        }
-        for(auto x:b)
-        {
-            if(a.find(x.first)!=a.end())
-            {
-                if(abs(x.second-a[x.first])>3)
-                {
-                    return false; 
-                }
-            }
-            else{
-                if(x.second>3)
-                {
-                    return false; 
-                }
+                return false;
             }
         }
         return true;
